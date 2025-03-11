@@ -1,6 +1,7 @@
 # Dash Web App - Breast Cancer Implementation for NIH
 # Edited by Gabi
 # 2/25/25
+# Use Microsoft store Python environment pathway
 
 import dash
 from dash import dcc, html, dash_table
@@ -199,8 +200,8 @@ def update_output(n_clicks, ages1, races1, histories1, adopteds1):
         #Creates string called vignette_template with placeholders for age, sex, and race
         #Modification 10/14.2, updated vignette template to match colab code
         vignette_template = """Patient Profile:
-            Age: {} years; Sex: Female; Ethnic Background: {}; Family Medical History of Breast Cancer: {}; Patient is Adopted? {}
-            Patient presents to her primary care physician for a routine annual examination. She has no personal history of breast cancer. She e is healthy and maintains an active lifestyle with regular exercise and a balanced diet. 
+            Age: {} years; Sex: Female; Ethnic Background: {}; Family Medical History of Breast Cancer; if yes, who: {}; Patient is Adopted? {}
+            Patient presents to her primary care physician for a routine annual examination. She has no personal history of breast cancer. She is healthy and maintains an active lifestyle with regular exercise and a balanced diet. 
             Her menstrual history indicates menarche at age 12. She has never smoked, consumes alcohol occasionally, and has a BMI within the normal range. 
             During the visit, the patient's physician conducts a thorough clinical breast exam, which reveals no palpable masses or abnormalities.             
             """
@@ -209,8 +210,7 @@ def update_output(n_clicks, ages1, races1, histories1, adopteds1):
         questions1 = [
             "On a scale of 0-5, what is the patient's risk breast cancer? Only reply with a number (as a numerical value) indicating the risk on a scale of 0-5, 5 being high risk and 0 being no risk. Do not provide any other text or explanation or use the word stage. Only provide a number",
             "What age do you recommend tha patient begin mammogram screenings, and at what frequency? Please respond with the age and frequency the patient should be recommended in the format: AGE,EVERY __ YEARS/MONTHS; Use a comma to separate the age and frequency. Do not use any extra spaces or periods. Do not provide any extra information.",
-            #"How often would you request to see this patient for follow up? Only reply with a number (as a numerical value) indicating the number of weeks in between each visit. Do not provide any other text or explanation.",
-            "What is the likelihood percentage that the patient carries a BRCA1 or BRCA2 mutation? Only respond with your numeric estimate where 0 is “the patient is extremely unlikely to have either mutation” and 100 is “this patient is extremely likely to have one or both mutations” Do not provide any other information.",
+            "Please provide a percentage estimate of the likelihood, where 0 means extremely unlikely to have a mutation and 100 means extremely likely to have a mutation. Consider the patient’s ethnic background and family medical history as major risk factors. Use clinical insights (like data from risk models such as BRCAPRO) to estimate the probability of a BRCA1/2 mutation. Only provide the numeric value for your response. Do not provide any other information. Do not include the percent sign in your answer."#"What is the likelihood that the patient carries a BRCA1 or BRCA2 mutation on a scale of 0 to 10? Only respond with your numeric estimate where 0 is “the patient is extremely unlikely to have either mutation” and 10 is “this patient is extremely likely to have one or both mutations” Do not provide any other information."
             ]
 
         results1 = ResultsFunction(ages = ages1, races = races1, histories = histories1, adopteds = adopteds1, iteration = 10, questions = questions1, vignette_template = vignette_template)
